@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Formulario de Registro</title>
+    <link href="./CSS/style.css" rel="stylesheet">
+    <link href="fontawesome-free-6.6.0-web/css/fontawesome.css" rel="stylesheet"/>
+    <link href="fontawesome-free-6.6.0-web/css/brands.css" rel="stylesheet"/>
+    <link href="fontawesome-free-6.6.0-web/css/solid.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .custom-button {
+            background-color: #673ab7;
+            color: white;
+        }
+
+        .custom-button:hover {
+            background-color: #5e35b1;
+            transition: ease-in-out 0.3s;
+        }
+
+        .accordion-header {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .accordion-header:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #9ca3af;
+            transition: background-color 0.5s;
+
+        }
+
+        .accordion-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.7s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-custom-pattern bg-center mb-14">
+<header class="container mx-auto  text-center py-6" content="width=device-width">
+    <img alt="Logo de la página" class="mx-auto" src="Images/iconekta-blue-tb.png">
+</header>
+<div class="container flex justify-center items-center mx-auto pl-3 pr-3 p-0 pb-10 w-full">
+    <div class="bg-white p-4 rounded-lg shadow-2xl mx-auto mb-4 w-full">
+        <h2 class="bg-gradient-to-r from-pink-500 to-indigo-500 items-center text-center bg-clip-text text-transparent text-4xl pl-3 pb-3 font-superbold mb-4">
+            Carga tu oportunidad de negocio y potencia tu Firma</h2>
+        <form>
+            <div class="flex flex-col gap-3 mr-3">
+                <div class="flex flex-col">
+                    <label class="pl-3" for="inputFirma">Nombre de Firma de Abogados</label>
+                    <input class="w-full p-2 m-2 border shadow rounded-lg" id="inputFirma"
+                           placeholder="Nombre de Firma de Abogados" type="text">
+                </div>
+
+                <div class="flex flex-row gap-5">
+                    <div class="flex flex-col w-1/2">
+                        <label class="pl-3" for="inputNombre">Nombre</label>
+                        <input class="w-full p-2 m-2 border shadow rounded-lg" id="inputNombre" placeholder="Nombre"
+                               type="text">
+                    </div>
+                    <div class="flex flex-col w-1/2">
+                        <label class="pl-3" for="inputApellido">Apellidos</label>
+                        <input class="w-full p-2 m-2 border shadow rounded-lg" id="inputApellido"
+                               placeholder="Apellidos" type="text">
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="pl-3" for="inputCorreo">Correo Electrónico</label>
+                    <input class="w-full p-2 m-2 border shadow rounded-lg" id="inputCorreo"
+                           placeholder="Correo Electrónico" type="email">
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="pl-3" for="pais">País</label>
+                    <select class="w-1/6 p-2 m-2 border shadow rounded-lg" id="pais" onchange="updateAreaCodes()">
+                        <option value="Bolivia">Bolivia</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Chile">Chile</option>
+                        <!-- Más opciones de países aquí -->
+                    </select>
+                </div>
+
+                <div class="flex flex-col">
+                    <label class="pl-3" for="inputTelefono">Teléfono</label>
+                    <div class="flex flex-row gap-0">
+                        <div class=" p-2 m-2 border shadow rounded-lg bg-white flex items-center justify-center"
+                             id="codigo-area">
+                            <!-- Opciones de código de área se actualizarán aquí -->
+                        </div>
+                        <input class=" p-2 m-2 border shadow rounded-lg" id="inputTelefono"
+                               placeholder="Teléfono" type="tel">
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-header bg-gradient-to-r from-pink-500 via-purple-700 to-indigo-500 bg-clip-text text-transparent text-4xl pl-3 pb-3 font-extrabold font-poppins rounded-lg mb-4"
+                 onclick="toggleAccordion()">Crea tu primera Oportunidad de Negocio
+            </div>
+            <div class="accordion-content transform transition duration-300">
+                <input class="w-full p-2 m-2 border rounded-lg" placeholder="Título" type="text">
+                <textarea class="w-full p-2 m-2 border rounded-lg" placeholder="Descripción"></textarea>
+                <button class="w-full p-2 m-2 custom-button rounded-lg" type="button">Deja que la IA te ayude con tu
+                    descripción
+                </button>
+                <button class="w-full p-2 m-2 custom-button rounded-lg" type="submit">Enviar</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<footer class="fixed bottom-0 text-center items-center bg-gradient-to-t from-blue-100 to-transparent w-full py-4">
+    <p class="text-center items-center ">&copy; 2024 Iconekta Inc. Todos los derechos reservados.</p>
+</footer>
+<script>
+    const areaCodes = {
+        Bolivia: ['+591'],
+        Argentina: ['+54'],
+        Chile: ['+56']
+        // Agregar más códigos de área según sea necesario
+    };
+
+    function updateAreaCodes() {
+        const countrySelect = document.getElementById('pais');
+        const areaCodeSelect = document.getElementById('codigo-area');
+        const selectedCountry = countrySelect.value;
+
+        // Limpiar las opciones actuales
+        areaCodeSelect.innerHTML = '';
+
+        // Agregar nuevas opciones basadas en el país seleccionado
+        if (areaCodes[selectedCountry]) {
+            areaCodes[selectedCountry].forEach(code => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = code;
+                areaCodeSelect.appendChild(option);
+            });
+        }
+    }
+
+    // Inicializar los códigos de área al cargar la página
+    document.addEventListener('DOMContentLoaded', updateAreaCodes);
+
+    function toggleAccordion() {
+        const content = document.querySelector('.accordion-content');
+        if (content.style.height === '0px' || content.style.height === '') {
+            content.style.height = content.scrollHeight + 'px';
+        } else {
+            content.style.height = '0px';
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-custom-pattern {
+    background-image: url("../Images/bg.jpg");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
+.font-superbold {
+  font-weight: 900; /* Puedes poner un valor mayor si es necesario, por ejemplo 950 o 1000 */
+}
+
+.phone-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+article {
+  opacity: 0;
+  transform: scale(0.25);
+  transition: opacity 1s, transform 1s;
+}
+
+article.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  /* Tus estilos aquí */
+}
+
+/* Estilos para pantallas medianas (tabletas) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Tus estilos aquí */
+}
+
+/* Estilos para pantallas grandes (desktop) */
+@media (min-width: 1025px) {
+  /* Tus estilos aquí */
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem; /* Espacio entre el label y el input */
+}
+
